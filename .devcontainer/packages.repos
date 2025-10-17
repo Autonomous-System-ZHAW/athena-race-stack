@@ -1,0 +1,12 @@
+repositories:
+  greenwave_monitor:
+    type: git
+    url: https://github.com/NVIDIA-ISAAC-ROS/greenwave_monitor.git 
+    version: 0.1.0
+    path: greenwave_monitor
+
+  athena-follow-the-gap:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena-follow-the-gap.git 
+    version: main
+    path:  athena_follow_the_gap
