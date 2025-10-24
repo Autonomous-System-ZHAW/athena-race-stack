@@ -8,6 +8,7 @@
         "ghcr.io/devcontainers/features/git": {}
     },
     "runArgs": [
+        "--device=/dev/ttyACM0"
         // "--cap-add=SYS_PTRACE", // Allows the container to trace processes using ptrace system call
         // "--security-opt=seccomp=unconfined", // Disables seccomp security profiles for the container
         // "--ipc=host", // Shares the host's IPC namespace with the container
@@ -29,6 +30,7 @@
         "GIT_WORK_TREE": "/ros_ws/src/${localWorkspaceFolderBasename}"
     },
     "mounts": [
+        "source=/dev/ttyACM0,target=/dev/ttyACM0,type=bind"
         /* Uncomment to allow the container to access the X server on the host e.g. to run Rviz and other GUI tools
 		{
 			"source": "/tmp/.X11-unix",

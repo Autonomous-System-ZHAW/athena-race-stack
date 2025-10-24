@@ -52,3 +52,15 @@ repositories:
     url: https://github.com/Autonomous-System-ZHAW/athena-pwm-hardware-interface.git 
     version: main
     path: athena-pwm-hardware-interface
+
+  transport-drivers:
+    type: git
+    url: https://github.com/ros-drivers/transport_drivers.git
+    version: main
+    path: transport-drivers
+
+  vesc:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena_vesc_controller.git
+    version: main
+    path: vesc
