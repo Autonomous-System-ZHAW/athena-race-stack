@@ -1,0 +1,66 @@
+repositories:
+  greenwave_monitor:
+    type: git
+    url: https://github.com/NVIDIA-ISAAC-ROS/greenwave_monitor.git 
+    version: 0.1.0
+    path: greenwave_monitor
+
+  athena_follow_the_gap:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena-follow-the-gap.git 
+    version: main
+    path: athena_follow_the_gap
+
+  athena_custom_msgs_pkg:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena-custom-msgs-pkg.git 
+    version: main
+    path: athena_custom_msgs_pkg
+
+  athena_gap_racer:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena-gap-racer.git 
+    version: main
+    path: athena_gap_racer
+
+  athena_global_planner:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena-global-planner.git 
+    version: main
+    path: athena_global_planner
+
+  athena_ldlidar_stl_ros2:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena-ldlidar-stl-ros2.git 
+    version: main
+    path: athena_ldlidar_stl_ros2
+
+  athena_local_planner:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena-local-planner.git 
+    version: main
+    path: athena_local_planner
+
+  athena_pure_pursuit:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena-pure-pursuit.git 
+    version: main
+    path: athena_pure_pursuit
+
+  athena_pwm_hardware_interface:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena-pwm-hardware-interface.git 
+    version: main
+    path: athena_pwm_hardware_interface
+
+  transport_drivers:
+    type: git
+    url: https://github.com/ros-drivers/transport_drivers.git
+    version: main
+    path: transport_drivers
+
+  athena_vesc_controller:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena_vesc_controller.git
+    version: main
+    path: athena_vesc_controller
