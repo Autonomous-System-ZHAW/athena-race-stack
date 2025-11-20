@@ -52,16 +52,12 @@
 
     },
     "runArgs": [
-        "--hostname=${localWorkspaceFolderBasename}-devcontainer",
-        "--device=/dev/ttyACM0"
+        "--hostname=${localWorkspaceFolderBasename}-devcontainer"
     ],
-    "mounts": [
-        "source=/dev/ttyACM0,target=/dev/ttyACM0,type=bind"
-
-    ],
+    "mounts": [],
     "features": {
         "ghcr.io/devcontainers/features/git": {}
     },
-    "postCreateCommand": "bash -lc 'mkdir -p src && vcs import src < ${containerWorkspaceFolder}/${localWorkspaceFolderBasename}/ros2.repos --recursive && sudo apt-get update && rosdep update && rosdep install --from-paths . --ignore-src --rosdistro $ROS_DISTRO -r -y'",
-    "postStartCommand": "/bin/bash -c 'rm -rf build/ install/ log/ && source /opt/ros/$ROS_DISTRO/setup.bash && colcon build --symlink-install'"
+    "postCreateCommand": "bash -lc 'vcs import /home/${localEnv:USERNAME}/ros2_ws/${localWorkspaceFolderBasename}/ros2_ws/src < ${containerWorkspaceFolder}/${localWorkspaceFolderBasename}/ros2.repos --recursive && sudo apt-get update && rosdep update && rosdep install --from-paths /home/${localEnv:USERNAME}/ros2_ws/${localWorkspaceFolderBasename}/ros2_ws --ignore-src --rosdistro $ROS_DISTRO -r -y'",
+    "postStartCommand": "/bin/bash -c 'cd /home/${localEnv:USERNAME}/ros2_ws/${localWorkspaceFolderBasename}/ros2_ws && rm -rf build install log && source /opt/ros/$ROS_DISTRO/setup.bash && colcon build --symlink-install'"
 }
