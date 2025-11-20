@@ -206,10 +206,14 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-# ignore src in ros2_ws
-ros2_ws/src/
-
 # ignore colcon-generated files
 ros2_ws/build/
 ros2_ws/install/
 ros2_ws/log/
+
+# ignore everything inside src
+ros2_ws/src/*
+
+# but keep these files/folders
+!ros2_ws/.gitkeep
+!ros2_ws/src/.gitkeep
