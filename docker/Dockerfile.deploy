@@ -39,11 +39,13 @@ ENV GIT_WORK_TREE=/ros_ws/src/${PROJECT_NAME}
 
 WORKDIR /ros_ws
 
-RUN mkdir -p src
+RUN rm -rf /ros_ws/src \
+ && mkdir -p /ros_ws/src
+
 COPY ros2.repos /ros_ws/
 
-RUN cd src \
- && vcs import < /ros_ws/ros2.repos \
+RUN cd /ros_ws/src \
+ && vcs import --skip-existing < /ros_ws/ros2.repos \
  && cd /ros_ws \
  && rosdep update \
  && rosdep install --from-paths src --ignore-src -r -y \
