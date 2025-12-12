@@ -40,7 +40,7 @@ ENV GIT_WORK_TREE=/ros_ws/src/${PROJECT_NAME}
 WORKDIR /ros_ws/athena-race-stack
 COPY ros2.repos .
 
-RUN vcs import < packages.repos \
+RUN vcs import < ros2.repos \
  && cd .. \
  && rosdep update \
  && rosdep install --from-paths src --ignore-src -r -y \
