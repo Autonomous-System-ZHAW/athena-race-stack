@@ -12,7 +12,7 @@ RUN apt-get install -y wget \
     git tmux
 
 # Copy tmux configurations
-COPY tmux.conf /root/.tmux.conf
+COPY docker/tmux.conf /root/.tmux.conf
 
 # Set environment variables
 ENV ROS_DOMAIN_ID=21
@@ -22,7 +22,7 @@ ENV GIT_WORK_TREE=/ros_ws/src/${PROJECT_NAME}
 
 # Create overlay workspace
 WORKDIR /ros_ws/src
-COPY .devcontainer/packages.repos .
+COPY .devcontainer/ros2.repos .
 
 # Copy source code into the container if the project is fix
 # COPY . /ros_ws/src/${PROJECT_NAME}
