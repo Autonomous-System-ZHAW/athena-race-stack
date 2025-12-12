@@ -37,11 +37,14 @@ ENV GZ_SIM_RESOURCE_PATH=/ros_ws/src/${PROJECT_NAME}/src/
 ENV GIT_DIR=/ros_ws/src/${PROJECT_NAME}/.git
 ENV GIT_WORK_TREE=/ros_ws/src/${PROJECT_NAME}
 
-WORKDIR /ros_ws/athena-race-stack
-COPY ros2.repos .
+WORKDIR /ros_ws
 
-RUN vcs import < ros2.repos \
- && cd .. \
+RUN mkdir -p src
+COPY ros2.repos /ros_ws/
+
+RUN cd src \
+ && vcs import < /ros_ws/ros2.repos \
+ && cd /ros_ws \
  && rosdep update \
  && rosdep install --from-paths src --ignore-src -r -y \
  && source /opt/ros/${ROS_DISTRO}/setup.bash \
