@@ -2,7 +2,7 @@ FROM ros_docker
 
 SHELL [ "/bin/bash" , "-c" ]
 
-ARG PROJECT_NAME=autonomous_rc_model_car
+ARG PROJECT_NAME=athena-race-stack
 
 # Upgrade all packages
 RUN apt-get update && apt-get upgrade -y
