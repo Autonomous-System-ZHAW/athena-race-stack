@@ -34,8 +34,8 @@ COPY docker/tmux.conf /root/.tmux.conf
 
 ENV ROS_DOMAIN_ID=21
 ENV GZ_SIM_RESOURCE_PATH=/ros_ws/src/${PROJECT_NAME}/src/
-ENV GIT_DIR=/ros_ws/src/${PROJECT_NAME}/.git
-ENV GIT_WORK_TREE=/ros_ws/src/${PROJECT_NAME}
+# ENV GIT_DIR=/ros_ws/src/${PROJECT_NAME}/.git
+#ENV GIT_WORK_TREE=/ros_ws/src/${PROJECT_NAME}
 
 WORKDIR /ros_ws
 
@@ -51,8 +51,8 @@ RUN vcs import /ros_ws/src < /ros_ws/ros2.repos \
 
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /root/.bashrc \
  && echo "source /ros_ws/install/setup.bash" >> /root/.bashrc \
- && echo "source /usr/share/bash-completion/completions/git" >> /root/.bashrc \
- && git config --global --add safe.directory ${GIT_WORK_TREE}
+ && echo "source /usr/share/bash-completion/completions/git" >> /root/.bashrc 
+ # && git config --global --add safe.directory ${GIT_WORK_TREE}
 
 WORKDIR /ros_ws
 
