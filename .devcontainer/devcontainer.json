@@ -42,7 +42,7 @@
                 "ms-python.debugpy",
                 "ms-python.vscode-pylance",
                 "eamodio.gitlens",
-                "ranch-hand-robotics.rde-pack",
+                "ranch-hand-robotics.rde-pack"
             ]
         }
     },
@@ -53,15 +53,15 @@
     },
     "runArgs": [
         "--hostname=${localWorkspaceFolderBasename}-devcontainer",
-        //"--device=/dev/ttyACM0"
+        "--device=/dev/ttyACM0"
     ],
     "features": {
         "ghcr.io/devcontainers/features/git": {}
     },
-    "postCreateCommand": "bash -lc 'mkdir -p src && mkdir -p dev && vcs import src < ${containerWorkspaceFolder}/${localWorkspaceFolderBasename}/ros2.repos --recursive && sudo apt-get update && rosdep update && rosdep install --from-paths . --ignore-src --rosdistro $ROS_DISTRO -r -y && chmod +x athena-race-stack/scripts/install_acados.sh && ./athena-race-stack/scripts/install_acados.sh'",
+    "postCreateCommand": "bash -lc 'mkdir -p src && mkdir -p dev && vcs import src < ${containerWorkspaceFolder}/${localWorkspaceFolderBasename}/ros2.repos --recursive && sudo apt-get update && rosdep update && rosdep install --from-paths . --ignore-src --rosdistro $ROS_DISTRO -r -y && bash athena-race-stack/scripts/install_acados.sh'",
     "postStartCommand": "/bin/bash -c 'rm -rf build/ install/ log/ && source /opt/ros/$ROS_DISTRO/setup.bash && colcon build --symlink-install'",
     "mounts": [
-        //"source=/dev/ttyACM0,target=/dev/ttyACM0,type=bind",
+        "source=/dev/ttyACM0,target=/dev/ttyACM0,type=bind",
         "source=${localWorkspaceFolder}\\..\\development_repos,target=/home/${localEnv:USERNAME}/ros2_ws/dev,type=bind"
     ]
 }

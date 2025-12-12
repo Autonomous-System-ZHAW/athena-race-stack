@@ -47,11 +47,11 @@ repositories:
     version: main
     path: athena_pure_pursuit
 
-  athena_pwm_hardware_interface:
-    type: git
-    url: https://github.com/Autonomous-System-ZHAW/athena-pwm-hardware-interface.git 
-    version: main
-    path: athena_pwm_hardware_interface
+  # athena_pwm_hardware_interface:
+    # type: git
+    # url: https://github.com/Autonomous-System-ZHAW/athena-pwm-hardware-interface.git 
+    # version: main
+    # path: athena_pwm_hardware_interface
 
   transport_drivers:
     type: git
@@ -62,5 +62,5 @@ repositories:
   athena_vesc_controller:
     type: git
     url: https://github.com/Autonomous-System-ZHAW/athena_vesc_controller.git
-    version: main
+    version: dev
     path: athena_vesc_controller
