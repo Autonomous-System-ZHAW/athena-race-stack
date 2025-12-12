@@ -21,8 +21,8 @@ ENV GIT_DIR=/ros_ws/src/${PROJECT_NAME}/.git
 ENV GIT_WORK_TREE=/ros_ws/src/${PROJECT_NAME}
 
 # Create overlay workspace
-WORKDIR /ros_ws/src
-COPY .devcontainer/ros2.repos .
+WORKDIR /ros_ws/athena-race-stack
+COPY ros2.repos .
 
 # Copy source code into the container if the project is fix
 # COPY . /ros_ws/src/${PROJECT_NAME}
