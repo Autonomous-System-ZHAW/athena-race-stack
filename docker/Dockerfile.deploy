@@ -1,63 +1,57 @@
 FROM ros_docker
 
-SHELL [ "/bin/bash" , "-c" ]
+SHELL ["/bin/bash", "-c"]
 
 ARG PROJECT_NAME=athena-race-stack
 
-RUN rm -f /etc/apt/sources.list.d/ros2.list || true
+RUN sed -i 's|^deb .*packages.ros.org|# &|g' /etc/apt/sources.list || true \
+ && sed -i 's|^deb .*packages.ros.org|# &|g' /etc/apt/sources.list.d/*.list || true \
+ && sed -i 's|^URIs:.*packages.ros.org|# &|g' /etc/apt/sources.list.d/*.sources || true
 
-# Basis-Tools installieren (ohne ROS-Repo)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates curl gnupg
+    ca-certificates \
+    curl \
+    gnupg \
+ && rm -rf /var/lib/apt/lists/*
 
-# Neuer ROS GPG Key
 RUN mkdir -p /etc/apt/keyrings \
  && curl -fsSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
     | gpg --dearmor -o /etc/apt/keyrings/ros-archive-keyring.gpg
 
-# ROS Repo sauber neu anlegen
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/ros-archive-keyring.gpg] \
 http://packages.ros.org/ros2/ubuntu noble main" \
 > /etc/apt/sources.list.d/ros2.list
 
-# Jetzt erst System-Update
 RUN apt-get update && apt-get upgrade -y
 
-# Essentials
-RUN apt-get install -y wget git tmux
+RUN apt-get install -y --no-install-recommends \
+    wget \
+    git \
+    tmux \
+    python3-rosdep
 
-# Copy tmux configurations
 COPY docker/tmux.conf /root/.tmux.conf
 
-# Set environment variables
 ENV ROS_DOMAIN_ID=21
 ENV GZ_SIM_RESOURCE_PATH=/ros_ws/src/${PROJECT_NAME}/src/
 ENV GIT_DIR=/ros_ws/src/${PROJECT_NAME}/.git
 ENV GIT_WORK_TREE=/ros_ws/src/${PROJECT_NAME}
 
-# Create overlay workspace
 WORKDIR /ros_ws/athena-race-stack
 COPY ros2.repos .
 
-# Copy source code into the container if the project is fix
-# COPY . /ros_ws/src/${PROJECT_NAME}
+RUN vcs import < packages.repos \
+ && cd .. \
+ && rosdep update \
+ && rosdep install --from-paths src --ignore-src -r -y \
+ && source /opt/ros/${ROS_DISTRO}/setup.bash \
+ && colcon build
 
-RUN vcs import < packages.repos; \
-    cd ..; \
-    apt-get update; \
-    rosdep update; \
-    rosdep install --from-paths src --ignore-src -r -y; \
-    source /opt/ros/${ROS_DISTRO}/setup.bash; \
-    colcon build;
+RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /root/.bashrc \
+ && echo "source /ros_ws/install/setup.bash" >> /root/.bashrc \
+ && echo "source /usr/share/bash-completion/completions/git" >> /root/.bashrc \
+ && git config --global --add safe.directory ${GIT_WORK_TREE}
 
-# Add sourcing overlay to .bashrc
-RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc; \
-    echo "source /ros_ws/install/setup.bash" >> ~/.bashrc; \
-    echo "source /usr/share/bash-completion/completions/git" >> ~/.bashrc; \
-    git config --global --add safe.directory ${GIT_WORK_TREE}
-
-# Set initial dir for container
 WORKDIR /ros_ws
 
-# Set up tmux session
 CMD ["bash", "-c", "tmux new-session -s ros-control-desk -d bash; tmux split-window -h; tmux split-window -v; tmux select-pane -t 0; tmux split-window -v; tmux attach"]
