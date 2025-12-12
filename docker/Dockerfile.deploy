@@ -4,24 +4,27 @@ SHELL [ "/bin/bash" , "-c" ]
 
 ARG PROJECT_NAME=athena-race-stack
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates curl gnupg \
- && mkdir -p /etc/apt/keyrings \
- && curl -fsSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
-    | gpg --dearmor -o /etc/apt/keyrings/ros-archive-keyring.gpg \
- && rm -rf /var/lib/apt/lists/*
+RUN rm -f /etc/apt/sources.list.d/ros2.list || true
 
-# ROS2 Repo explizit an neuen Key binden
+# Basis-Tools installieren (ohne ROS-Repo)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates curl gnupg
+
+# Neuer ROS GPG Key
+RUN mkdir -p /etc/apt/keyrings \
+ && curl -fsSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
+    | gpg --dearmor -o /etc/apt/keyrings/ros-archive-keyring.gpg
+
+# ROS Repo sauber neu anlegen
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/ros-archive-keyring.gpg] \
 http://packages.ros.org/ros2/ubuntu noble main" \
 > /etc/apt/sources.list.d/ros2.list
 
-# Upgrade all packages
+# Jetzt erst System-Update
 RUN apt-get update && apt-get upgrade -y
 
-# Install essential packages
-RUN apt-get install -y wget \
-    git tmux
+# Essentials
+RUN apt-get install -y wget git tmux
 
 # Copy tmux configurations
 COPY docker/tmux.conf /root/.tmux.conf
