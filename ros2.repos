@@ -5,12 +5,6 @@ repositories:
     version: main
     path: athena_custom_msgs_pkg
 
-  athena_gap_racer:
-    type: git
-    url: https://github.com/Autonomous-System-ZHAW/athena-gap-racer.git 
-    version: main
-    path: athena_gap_racer
-
   athena_follow_the_gap:
     type: git
     url: https://github.com/Autonomous-System-ZHAW/athena_follow_the_gap.git 
@@ -34,3 +28,27 @@ repositories:
     url: https://github.com/Autonomous-System-ZHAW/athena_vesc_controller.git
     version: dev
     path: athena_vesc_controller
+
+  athena_remote_control:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena_remote_control.git
+    version: main
+    path: athena_remote_control
+
+  athena_lifecycle_state_machine:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena_lifecycle_state_machine.git
+    version: main
+    path: athena_lifecycle_state_machine
+
+  athena_autonomous_racing:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena_autonomous_racing.git
+    version: main
+    path: athena_autonomous_racing
+
+  athena_steering_wheel_drive:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena_steering_wheel_drive.git
+    version: main
+    path: athena_steering_wheel_drive
