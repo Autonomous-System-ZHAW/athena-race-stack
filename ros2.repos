@@ -38,7 +38,7 @@ repositories:
   athena_lifecycle_state_machine:
     type: git
     url: https://github.com/Autonomous-System-ZHAW/athena_lifecycle_state_machine.git
-    version: main
+    version: mission-selection
     path: athena_lifecycle_state_machine
 
   athena_autonomous_racing:
