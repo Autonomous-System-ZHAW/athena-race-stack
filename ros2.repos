@@ -11,11 +11,11 @@ repositories:
     version: vesc-integration
     path: follow_the_gap
 
-  athena_ldlidar_stl_ros2:
-    type: git
-    url: https://github.com/Autonomous-System-ZHAW/athena-ldlidar-stl-ros2.git 
-    version: main
-    path: athena_ldlidar_stl_ros2
+  # athena_ldlidar_stl_ros2:
+  #   type: git
+  #   url: https://github.com/Autonomous-System-ZHAW/athena-ldlidar-stl-ros2.git 
+  #   version: main
+  #   path: athena_ldlidar_stl_ros2
 
   transport_drivers:
     type: git
@@ -44,11 +44,11 @@ repositories:
   athena_autonomous_racing:
     type: git
     url: https://github.com/Autonomous-System-ZHAW/athena_autonomous_racing.git
-    version: main
+    version: hil-testing
     path: athena_autonomous_racing
 
-  athena_steering_wheel_drive:
-    type: git
-    url: https://github.com/Autonomous-System-ZHAW/athena_steering_wheel_drive.git
-    version: main
-    path: athena_steering_wheel_drive
+  # athena_steering_wheel_drive:
+  #   type: git
+  #   url: https://github.com/Autonomous-System-ZHAW/athena_steering_wheel_drive.git
+  #   version: main
+  #   path: athena_steering_wheel_drive
