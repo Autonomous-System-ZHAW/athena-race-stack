@@ -1,16 +1,20 @@
- {
+{
     "name": "${localWorkspaceFolderBasename} ROS2 Dev-Container",
-    "privileged": true,
-    "remoteUser": "${localEnv:USERNAME}",
+    "privileged": true,                 // access to serial devices, SPI and GPIO
+    "remoteUser": "${localEnv:USER}",
     "build": {
-        "dockerfile": "Dockerfile.dev",
+        "context": "..",
+        "dockerfile": "../docker/Dockerfile",
+        "target": "dev",
         "args": {
-            "USERNAME": "${localEnv:USERNAME}",
+            "USERNAME": "${localEnv:USER}",
+            "USER_UID": "1000",
+            "USER_GID": "1000",
             "WS_BASENAME": "${localWorkspaceFolderBasename}"
         }
     },
-    "workspaceFolder": "/home/${localEnv:USERNAME}/ros2_ws",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/home/${localEnv:USERNAME}/ros2_ws/${localWorkspaceFolderBasename},type=bind",
+    "workspaceFolder": "/home/${localEnv:USER}/ros2_ws",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/${localEnv:USER}/ros2_ws/${localWorkspaceFolderBasename},type=bind",
     "customizations": {
         "vscode": {
             "settings": {
@@ -21,47 +25,33 @@
                 },
                 "files.associations": {
                     "*.rviz": "yaml",
-                    "*.srdf": "xml",
                     "*.urdf": "xml",
                     "*.xacro": "xml",
-                    "*.sdf": "xml",
-                    "*.world": "xml",
                     "*.repos": "yaml"
-                }
-                
+                },
+                "git.repositoryScanMaxDepth": 3
             },
+            // Keep this list short: extensions run on the Pi's CPU
             "extensions": [
-                "mhutchie.git-graph",
-                "ms-azuretools.vscode-docker",
-                "ms-python.black-formatter",
-                "ms-iot.vscode-ros",
-                "ms-vscode.cpptools",
-                "ms-vscode.cpptools-themes",
-                "twxs.cmake",
                 "ms-python.python",
-                "ms-python.debugpy",
-                "ms-python.vscode-pylance",
-                "eamodio.gitlens",
+                "ms-python.black-formatter",
+                "mhutchie.git-graph",
                 "ranch-hand-robotics.rde-pack"
             ]
         }
     },
     "containerEnv": {
-        "ROS_DOMAIN_ID": "100",
-        "GZ_SIM_RESOURCE_PATH": "/home/${localEnv:USERNAME}/ros2_ws/${localWorkspaceFolderBasename}/src"
-
+        // Dev only: use the file from the repo so edits apply without rebuild.
+        // Deploy uses the copy baked into the image (see docker/Dockerfile).
+        "FASTRTPS_DEFAULT_PROFILES_FILE": "/home/${localEnv:USER}/ros2_ws/${localWorkspaceFolderBasename}/config/fastdds.xml"
     },
     "runArgs": [
         "--hostname=${localWorkspaceFolderBasename}-devcontainer",
-        "--device=/dev/ttyACM0"
+        "--network=host",
+        "--ipc=host"
     ],
     "features": {
         "ghcr.io/devcontainers/features/git": {}
     },
-    "postCreateCommand": "bash -lc 'mkdir -p src && mkdir -p dev && vcs import src < ${containerWorkspaceFolder}/${localWorkspaceFolderBasename}/ros2.repos --recursive && sudo apt-get update && rosdep update && rosdep install --from-paths . --ignore-src --rosdistro $ROS_DISTRO -r -y && bash athena-race-stack/scripts/install_acados.sh'",
-    "postStartCommand": "/bin/bash -c 'rm -rf build/ install/ log/ && source /opt/ros/$ROS_DISTRO/setup.bash && colcon build --symlink-install'",
-    "mounts": [
-        "source=/dev/ttyACM0,target=/dev/ttyACM0,type=bind",
-        "source=${localWorkspaceFolder}\\..\\development_repos,target=/home/${localEnv:USERNAME}/ros2_ws/dev,type=bind"
-    ]
+    "postCreateCommand": "bash ${containerWorkspaceFolder}/${localWorkspaceFolderBasename}/.devcontainer/post_create.sh"
 }

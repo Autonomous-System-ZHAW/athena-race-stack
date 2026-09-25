@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+    <transport_descriptors>
+        <transport_descriptor>
+            <transport_id>UdpTransport</transport_id>
+            <type>UDPv4</type>
+            <maxMessageSize>1400</maxMessageSize>
+            <maxInitialPeersRange>20</maxInitialPeersRange>
+            <interfaceWhiteList>
+                <address>10.10.0.6</address>
+            </interfaceWhiteList>
+        </transport_descriptor>
+    </transport_descriptors>
+
+    <participant profile_name="udp_transport_profile" is_default_profile="true">
+        <rtps>
+            <builtin>
+                <initialPeersList>
+                    <locator>
+                        <udpv4><address>10.0.0.111</address></udpv4>
+                    </locator>
+                    <locator>
+                        <udpv4><address>10.10.0.6</address></udpv4>
+                    </locator>
+                </initialPeersList>
+            </builtin>
+            <userTransports>
+                <transport_id>UdpTransport</transport_id>
+            </userTransports>
+            <useBuiltinTransports>false</useBuiltinTransports>
+        </rtps>
+    </participant>
+</profiles>

@@ -1,0 +1,28 @@
+repositories:
+  transport_drivers:
+    type: git
+    url: https://github.com/ros-drivers/transport_drivers.git
+    version: 1.2.0
+
+  athena_vesc_controller:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena_vesc_controller.git
+    version: main
+    path: athena_vesc_controller
+
+  athena_ldlidar_stl_ros2:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena_ldlidar_stl_ros2.git
+    version: v1.0.0
+
+  athena_led_hardware:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena_led_hardware.git
+    version: main
+    path: athena_led_hardware
+
+  athena_autonomous_racing:
+    type: git
+    url: https://github.com/Autonomous-System-ZHAW/athena_autonomous_racing.git
+    version: main
+    path: athena_autonomous_racing
