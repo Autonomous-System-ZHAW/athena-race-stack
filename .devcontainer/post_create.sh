@@ -6,7 +6,10 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 WS_DIR="$(dirname "$REPO_DIR")"
 
+git config --global url."git@github.com:".insteadOf "https://github.com/"
+
 echo ">>> Importing repositories"
+
 mkdir -p "$REPO_DIR/src"
 vcs import --recursive --skip-existing --input "$REPO_DIR/car.repos" "$REPO_DIR/src"
 vcs import --recursive --skip-existing --input "$REPO_DIR/src/athena_autonomous_racing/athena.repos" "$REPO_DIR/src"

@@ -15,6 +15,10 @@
     },
     "workspaceFolder": "/home/${localEnv:USER}/ros2_ws",
     "workspaceMount": "source=${localWorkspaceFolder},target=/home/${localEnv:USER}/ros2_ws/${localWorkspaceFolderBasename},type=bind",
+    "mounts": [
+        // SSH key from the Pi, so git clones survive container rebuilds
+        "source=${localEnv:HOME}/.ssh,target=/home/${localEnv:USER}/.ssh,type=bind,readonly"
+    ],
     "customizations": {
         "vscode": {
             "settings": {
